@@ -57,33 +57,6 @@ export class MonthComponent implements OnInit {
         return this.dateService.getDay(day, this.monthNumber);
     }
 
-    public openDescription(event: Event): void {
-
-        // const containers = (this.month.nativeElement as HTMLDivElement).querySelectorAll('.container-day');
-        // const currentContainer = (event.target as HTMLDivElement).querySelector('.container-day');
-        // const currentOpen = Boolean(currentContainer?.classList.contains('open'));
-        // if (event.target == currentContainer) {
-        //     console.log(event.target);
-        //     return
-        // }
-
-        // if (currentOpen) {
-        //     currentContainer?.classList.add('open');
-        // }
-
-        // for(let container of Array.from(containers)) {
-        //     if (container.classList.contains('open')) {
-
-        //         container.classList.remove('open');
-        //     }
-        // }
-
-
-        // if(currentContainer) {
-        //     currentContainer.classList.toggle('open');
-        // }
-    }
-
     private setData(): void {
         this.daysAmount = dayjs(dayjs().month(this.monthNumber)).daysInMonth();
         this.weekDayStartMonth = dayjs(`2024-${this.monthNumber + 1}`).day() === 0

@@ -2,6 +2,8 @@ import {NgFor, NgIf, NgTemplateOutlet} from '@angular/common';
 import { AfterViewInit, Component, DoCheck, ElementRef, HostListener, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import {FormControl, FormGroup, FormsModule, NgForm, NgModel, ReactiveFormsModule} from '@angular/forms';
 import {debounce, debounceTime, delay, Subject, takeLast} from 'rxjs';
+import { DateService } from '../../system/services/date.service';
+import dayjs from 'dayjs';
 
 @Component({
   selector: '[app-day]',
@@ -23,11 +25,14 @@ export class DayComponent implements OnInit, AfterViewInit {
     @ViewChild('dayOverhead', {read: ElementRef}) dayOverheadRef!: ElementRef;
     @ViewChild('textArea', {read: ElementRef}) textAreaRef!: ElementRef;
 
-    // public contentFormControl = new FormControl();
     public contentStream$: Subject<string> = new Subject();
 
     public isOpen: boolean = false;
     public myForm!: FormGroup;
+
+    constructor(
+        private dateService: DateService,
+    ) {}
 
     @HostListener('blur') abc() {
         console.log('blured');
@@ -43,7 +48,21 @@ export class DayComponent implements OnInit, AfterViewInit {
         this.myForm.valueChanges.pipe(
             debounceTime(1200)
         ).subscribe(v => {
-            console.log(v.contentFormControl)
+            // this.dateService.setTask(
+            //     String(dayjs().year()),
+            //     String(dayjs().month()),
+            //     String(this.day),
+            //     v.contentFormControl
+            // )
+            this.dateService.setTask(
+                '2024',
+                'september',
+                '20',
+                v.contentFormControl
+            )
+
+            console.log(this.dateService.calendarTasksPublic);
+            
         })
     }
 

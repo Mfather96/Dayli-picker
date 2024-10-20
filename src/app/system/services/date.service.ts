@@ -52,12 +52,26 @@ export class DateService {
         return monthDays
     }
 
+    public get calendarTasksPublic() {
+        return this.calendarTasks
+    }
+
     public setTask(
         year: string,
         month: string,
         day: string,
         taskString: string
     ): void {
+        if (!this.calendarTasks[year]) {
+            this.calendarTasks[year] = {}
+        }
+        if (!this.calendarTasks[year][month]) {
+            this.calendarTasks[year][month] = {}
+        }
+        if (!this.calendarTasks[year][month][day]) {
+            this.calendarTasks[year][month][day] = {task: ''}
+        }
+        
         this.calendarTasks[year][month][day].task = taskString;
     }
 }
