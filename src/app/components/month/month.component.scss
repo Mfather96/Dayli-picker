@@ -1,0 +1,81 @@
+.month {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    position: relative;
+    box-shadow: 0 5px 12px -3px rgba(0, 0, 0, 0.3);;
+    background: #fff;
+
+    .day,
+    .dayName {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 15px;
+        cursor: pointer;
+        flex-direction: column;
+    }
+
+    .day {
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        width: 20px;
+        height: 20px;
+        position: relative;
+        user-select: none;
+        transition: background ease 0.1s;
+
+        &.today {
+            background: #2f697b;
+            color: #fff;
+        }
+    }
+
+    .day:hover {
+        background: rgba(43, 167, 156, 0.452);
+        color: #000;
+    }
+
+    .day.transparent {
+        opacity: 0;
+    }
+
+    .dayName.weekend {
+        color: rgb(126, 0, 0);
+    }
+
+    .dayName {
+        border-bottom: 1px solid #ccc;
+        font-weight: bold;
+    }
+
+    .container-day {
+        overflow: hidden;
+        height: 0;
+        width: 250px;
+        transition: all ease 0.2s;
+        position: absolute;
+        opacity: 0;
+        top: 35px;
+
+        &.open {
+            overflow: visible;
+            height: fit-content;
+            border: 1px solid #000;
+            padding: 10px 5px;
+            background: #fff;
+            z-index: 5;
+            opacity: 1;
+        }
+    }
+}
+
+.month-name {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f9f9df;
+    border: 1px solid #ccc;
+}

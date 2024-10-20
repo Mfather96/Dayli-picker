@@ -1,0 +1,9 @@
+<div class="container">
+    <div *ngFor="let month of sortedMonth"
+        app-month
+        class="month"
+        [class.old]="currentMonth > month.id"
+        [monthName]="month.title"
+        [monthNumber]="month.id">
+    </div>
+</div>

@@ -1,0 +1,36 @@
+.terminal {
+    width: 600px;
+    height: 600px;
+    margin: 150px auto 0;
+    // border: 1px solid #000;
+    border-radius: 10px;
+
+    .header {
+        height: 50px;
+        width: 100%;
+        background: #333;
+        border-radius: 10px 10px 0 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 20px;
+        box-sizing: border-box;
+        .dot {
+            border-radius: 50%;
+            width: 15px;
+            height: 15px;
+            background-color: #ccc;
+        }
+    }
+
+    .container {
+        background: #000;
+        border-radius: 0 0 10px 10px;
+        color: #fff;
+        height: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+        overflow: hidden;
+        font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    }
+}

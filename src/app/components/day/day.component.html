@@ -1,0 +1,7 @@
+<div #dayOverhead class="container-day">
+    {{day}}
+</div>
+
+<div *ngIf="isOpen" [formGroup]="myForm" class="textarea-day">
+    <textarea formControlName="contentFormControl" name="task"></textarea>
+</div>

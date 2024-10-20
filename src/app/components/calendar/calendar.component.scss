@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    gap: 15px;
+    margin: 0 auto;
+
+    .month {
+        transition: all ease 0.1s;
+        box-sizing: content-box;
+
+        &.old {
+            opacity: 0.3;
+        }
+
+        &:hover:not(.old) {
+            z-index: 3;
+            transform: scale(1.1);
+        }
+    }
+}

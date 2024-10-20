@@ -1,0 +1,18 @@
+<div app-create-task></div>
+
+<div class="month-name">{{monthName}}</div>
+<div class="month" #month>
+    <div *ngFor="let dayName of daysNames"
+        class="dayName"
+        [class.weekend]="dayName === 'вс' || dayName === 'сб'">
+        {{dayName}}
+    </div>
+
+    <div app-day
+        *ngFor="let day of monthDays"
+        class="day"
+        [id]="getDay(day)"
+        [class.today]="today === getDay(day)"
+        [class.transparent]="!(day > 0)"
+        [day]="day"></div>
+</div>
