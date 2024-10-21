@@ -4,6 +4,7 @@ import {FormControl, FormGroup, FormsModule, NgForm, NgModel, ReactiveFormsModul
 import {debounce, debounceTime, delay, Subject, takeLast} from 'rxjs';
 import { DateService } from '../../system/services/date.service';
 import dayjs from 'dayjs';
+import {months} from '../../system/constants/date.constants';
 
 @Component({
   selector: '[app-day]',
@@ -21,6 +22,7 @@ import dayjs from 'dayjs';
 export class DayComponent implements OnInit, AfterViewInit {
     @Input() id: string = '';
     @Input() day: number = 1;
+    @Input() monthIndex: number = 1;
 
     @ViewChild('dayOverhead', {read: ElementRef}) dayOverheadRef!: ElementRef;
     @ViewChild('textArea', {read: ElementRef}) textAreaRef!: ElementRef;
@@ -29,15 +31,11 @@ export class DayComponent implements OnInit, AfterViewInit {
 
     public isOpen: boolean = false;
     public myForm!: FormGroup;
+    public hasTask: boolean = false;
 
     constructor(
         private dateService: DateService,
     ) {}
-
-    @HostListener('blur') abc() {
-        console.log('blured');
-
-    }
 
     ngOnInit(): void {
 
@@ -48,21 +46,16 @@ export class DayComponent implements OnInit, AfterViewInit {
         this.myForm.valueChanges.pipe(
             debounceTime(1200)
         ).subscribe(v => {
-            // this.dateService.setTask(
-            //     String(dayjs().year()),
-            //     String(dayjs().month()),
-            //     String(this.day),
-            //     v.contentFormControl
-            // )
             this.dateService.setTask(
-                '2024',
-                'september',
-                '20',
+                String(dayjs().year()),
+                months[this.monthIndex].title,
+                String(this.day),
                 v.contentFormControl
             )
 
-            console.log(this.dateService.calendarTasksPublic);
-            
+            // console.log(this.dateService.calendarTasksPublic);
+
+            this.hasTask = this.checkTask();
         })
     }
 
@@ -70,5 +63,22 @@ export class DayComponent implements OnInit, AfterViewInit {
         this.dayOverheadRef.nativeElement.addEventListener('click', () => {
             this.isOpen = !this.isOpen
         });
+    }
+
+    protected checkTask(): boolean {
+        const calendar = this.dateService.calendarTasksPublic;
+        const year = String(dayjs().year());
+        const month = months[this.monthIndex].title;
+        const day = String(this.day);
+
+        if (!calendar[year][month]) {
+            return false;
+        }
+
+        if (!calendar[year][month][day]) {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -12,6 +12,7 @@
         *ngFor="let day of monthDays"
         class="day"
         [id]="getDay(day)"
+        [monthIndex]="monthIndex"
         [class.today]="today === getDay(day)"
         [class.transparent]="!(day > 0)"
         [day]="day"></div>

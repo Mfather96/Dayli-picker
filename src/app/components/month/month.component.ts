@@ -21,7 +21,7 @@ import {DayComponent} from '../day/day.component';
 })
 export class MonthComponent implements OnInit {
 
-    @Input() monthNumber!: number;
+    @Input() monthIndex!: number;
     @Input() monthName!: string;
 
     @ViewChild('month') month!: ElementRef;
@@ -54,13 +54,13 @@ export class MonthComponent implements OnInit {
     }
 
     public getDay(day: any): string {
-        return this.dateService.getDay(day, this.monthNumber);
+        return this.dateService.getDay(day, this.monthIndex);
     }
 
     private setData(): void {
-        this.daysAmount = dayjs(dayjs().month(this.monthNumber)).daysInMonth();
-        this.weekDayStartMonth = dayjs(`2024-${this.monthNumber + 1}`).day() === 0
+        this.daysAmount = dayjs(dayjs().month(this.monthIndex)).daysInMonth();
+        this.weekDayStartMonth = dayjs(`2024-${this.monthIndex + 1}`).day() === 0
              ? 7
-             : dayjs(`2024-${this.monthNumber + 1}`).day();
+             : dayjs(`2024-${this.monthIndex + 1}`).day();
     }
 }

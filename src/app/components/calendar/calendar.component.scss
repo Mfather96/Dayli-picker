@@ -10,12 +10,8 @@
         box-sizing: content-box;
 
         &.old {
-            opacity: 0.3;
-        }
-
-        &:hover:not(.old) {
-            z-index: 3;
-            transform: scale(1.1);
+            // opacity: 0.3;
+            display: none;
         }
     }
 }

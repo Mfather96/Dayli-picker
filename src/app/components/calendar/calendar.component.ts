@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import dayjs from 'dayjs';
 import {DateService} from '../../system/services/date.service';
 import {MonthComponent} from '../month/month.component';
@@ -20,9 +20,7 @@ export class CalendarComponent implements OnInit{
 
     constructor(
         private dateService: DateService
-    ){
-
-    }
+    ){}
 
     ngOnInit(): void {
         this.monthArr = this.dateService.getMonthsArr();
@@ -30,5 +28,9 @@ export class CalendarComponent implements OnInit{
 
     public get sortedMonth(): IMonth[] {
         return this.dateService.getMonthsArr().reverse();
+    }
+
+    public toggleOldMonthes() {
+        // this.appMonth.nativeElement.classList.toggle('old');
     }
 }

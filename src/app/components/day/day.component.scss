@@ -17,5 +17,21 @@
 
     .container-day {
         padding: 15px 20px;
+
+        &.has-task {
+            position: relative;
+
+            &::before {
+                content: '';
+                position: absolute;
+                display: block;
+                background-color: red;
+                width: 8px;
+                height: 8px;
+                top: 8px;
+                right: 8px;
+                border-radius: 50%;
+            }
+        }
     }
 }
