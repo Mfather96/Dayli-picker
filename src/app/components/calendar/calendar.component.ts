@@ -1,13 +1,12 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import dayjs from 'dayjs';
 import { DateService } from '../../system/services/date.service';
 import { MonthComponent } from '../month/month.component';
 import { NgFor } from '@angular/common';
-import { interval } from 'rxjs';
 import { IMonth } from '../../system/interfaces/interface';
 
 @Component({
-    selector: '[app-calendar]',
+    selector: 'app-calendar',
     standalone: true,
     imports: [MonthComponent, NgFor],
     templateUrl: './calendar.component.html',
