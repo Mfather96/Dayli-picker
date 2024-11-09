@@ -1,4 +1,4 @@
-import {IMonth} from "../interfaces/interface";
+import { IMonth } from '../interfaces/interface';
 
 export const months: IMonth[] = [
     {
@@ -51,6 +51,4 @@ export const months: IMonth[] = [
     },
 ];
 
-export const DAYS = [
-    'пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'
-]
+export const DAYS = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];

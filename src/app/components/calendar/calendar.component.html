@@ -1,11 +1,12 @@
 <div class="container">
     <!-- <button (click)="toggleOldMonthes()">Показать предыдущие месяцы</button> -->
-    <div *ngFor="let month of monthArr"
+    <div
+        *ngFor="let month of monthArr"
         #appMonth
         app-month
         class="month"
         [class.old]="currentMonth > month.id"
         [monthName]="month.title"
-        [monthIndex]="month.id">
-    </div>
+        [monthIndex]="month.id"
+    ></div>
 </div>

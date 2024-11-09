@@ -1,19 +1,23 @@
 <div app-create-task></div>
 
-<div class="month-name">{{monthName}}</div>
+<div class="month-name">{{ monthName }}</div>
 <div class="month" #month>
-    <div *ngFor="let dayName of daysNames"
+    <div
+        *ngFor="let dayName of daysNames"
         class="dayName"
-        [class.weekend]="dayName === 'вс' || dayName === 'сб'">
-        {{dayName}}
+        [class.weekend]="dayName === 'вс' || dayName === 'сб'"
+    >
+        {{ dayName }}
     </div>
 
-    <div app-day
+    <div
+        app-day
         *ngFor="let day of monthDays"
         class="day"
         [id]="getDay(day)"
         [monthIndex]="monthIndex"
         [class.today]="today === getDay(day)"
         [class.transparent]="!(day > 0)"
-        [day]="day"></div>
+        [day]="day"
+    ></div>
 </div>

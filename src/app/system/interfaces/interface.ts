@@ -1,20 +1,20 @@
 export interface IMonth {
-    title: string,
-    id: number,
+    title: string;
+    id: number;
 }
 
 export interface CalendarTasks {
-    [key: string]: Year
+    [key: string]: Year;
 }
 
 export interface Year {
-    [key: string]: Month
+    [key: string]: Month;
 }
 
 export interface Month {
-    [key: string]: Day
+    [key: string]: Day;
 }
 
 export interface Day {
-    task: string,
+    task: string;
 }
