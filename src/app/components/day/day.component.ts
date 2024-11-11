@@ -2,25 +2,18 @@ import { NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import {
     AfterViewInit,
     Component,
-    DoCheck,
     ElementRef,
-    HostListener,
     Input,
-    OnChanges,
     OnInit,
-    SimpleChanges,
-    TemplateRef,
     ViewChild,
 } from '@angular/core';
 import {
     FormControl,
     FormGroup,
     FormsModule,
-    NgForm,
-    NgModel,
     ReactiveFormsModule,
 } from '@angular/forms';
-import { debounce, debounceTime, delay, Subject, takeLast } from 'rxjs';
+import { debounceTime, Subject } from 'rxjs';
 import { DateService } from '../../system/services/date.service';
 import dayjs from 'dayjs';
 import { months } from '../../system/constants/date.constants';

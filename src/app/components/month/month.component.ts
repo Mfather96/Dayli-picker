@@ -44,7 +44,7 @@ export class MonthComponent implements OnInit {
         return this.dateService.today();
     }
 
-    public getDay(day: any): string {
+    public getDay(day: number): string {
         return this.dateService.getDay(day, this.monthIndex);
     }
 

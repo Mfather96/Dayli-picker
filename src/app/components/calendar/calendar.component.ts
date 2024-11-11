@@ -6,7 +6,7 @@ import { NgFor } from '@angular/common';
 import { IMonth } from '../../system/interfaces/interface';
 
 @Component({
-    selector: 'app-calendar',
+    selector: '[app-calendar]',
     standalone: true,
     imports: [MonthComponent, NgFor],
     templateUrl: './calendar.component.html',

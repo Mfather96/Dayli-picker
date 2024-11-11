@@ -1,5 +1,8 @@
 {
     "tabWidth": 4,
     "useTabs": false,
-    "singleQuote": true
+    "singleQuote": true,
+    "htmlWhitespaceSensitivity": "css",
+    "semi": true,
+    "quoteProps": "consistent"
 }

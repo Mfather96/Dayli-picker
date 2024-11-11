@@ -4,7 +4,7 @@ import { CreateTaskComponent } from '../../../components/create-task/create-task
 import { TaskListComponent } from '../../../components/task-list/task-list.component';
 
 @Component({
-    selector: 'app-dates',
+    selector: '[app-dates]',
     standalone: true,
     imports: [RouterLink, CreateTaskComponent, TaskListComponent],
     templateUrl: './dates.component.html',

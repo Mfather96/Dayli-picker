@@ -11,6 +11,10 @@ export class DateService {
 
     constructor() {}
 
+    public get some() {
+        return 1;
+    }
+
     public getYear(): number {
         return dayjs().year();
     }
