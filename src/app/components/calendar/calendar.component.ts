@@ -4,6 +4,7 @@ import { DateService } from '../../system/services/date.service';
 import { MonthComponent } from '../month/month.component';
 import { NgFor } from '@angular/common';
 import { IMonth } from '../../system/interfaces/interface';
+import {DateHelper} from '../../system/helpers/date.helper';
 
 @Component({
     selector: '[app-calendar]',
@@ -19,11 +20,11 @@ export class CalendarComponent implements OnInit {
     constructor(private dateService: DateService) {}
 
     ngOnInit(): void {
-        this.monthArr = this.dateService.getMonthsArr();
+        this.monthArr = DateHelper.getMonthsArr();
     }
 
     public get sortedMonth(): IMonth[] {
-        return this.dateService.getMonthsArr().reverse();
+        return DateHelper.getMonthsArr().reverse();
     }
 
     public toggleOldMonthes() {

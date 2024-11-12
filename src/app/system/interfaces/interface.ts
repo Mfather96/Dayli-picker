@@ -18,3 +18,11 @@ export interface Month {
 export interface Day {
     task: string;
 }
+
+export interface ITask {
+    id: string,
+    year: string,
+    month: string,
+    day: string,
+    taskString: string,
+}

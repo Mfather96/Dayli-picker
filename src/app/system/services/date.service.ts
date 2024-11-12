@@ -1,80 +1,50 @@
 import { Injectable } from '@angular/core';
-import dayjs from 'dayjs';
-import { months } from '../constants/date.constants';
-import { CalendarTasks, IMonth } from '../interfaces/interface';
+import { CalendarTasks, ITask } from '../interfaces/interface';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
 export class DateService {
+    public tasksList: ITask[] = []
+
     private calendarTasks: CalendarTasks = {};
 
     constructor() {}
-
-    public get some() {
-        return 1;
-    }
-
-    public getYear(): number {
-        return dayjs().year();
-    }
-
-    public getMonthsArr(): IMonth[] {
-        return months;
-    }
-
-    public getCurrentMonth(): IMonth {
-        return months[dayjs().month()];
-    }
-
-    public getDay(day: number, month: number): string {
-        return dayjs().date(day).month(month).format('DD.MM.YYYY');
-    }
-
-    public today(): string {
-        return dayjs().format('DD.MM.YYYY');
-    }
-
-    public calculateMonthDays(
-        monthDays: number[],
-        daysAmount: number,
-        weekDayStartMonth: number,
-    ): number[] {
-        for (let i = 1; i <= daysAmount; i++) {
-            monthDays.push(i);
-        }
-
-        for (let i = 1; i < weekDayStartMonth; i++) {
-            monthDays.unshift(0);
-        }
-
-        for (let i = monthDays.length; i < 42; i++) {
-            monthDays.push(0);
-        }
-
-        return monthDays;
-    }
 
     public get calendarTasksPublic() {
         return this.calendarTasks;
     }
 
-    public setTask(
-        year: string,
-        month: string,
-        day: string,
-        taskString: string,
-    ): void {
-        if (!this.calendarTasks[year]) {
-            this.calendarTasks[year] = {};
+    public setTask(task: ITask): void {
+        if (!this.calendarTasks[task.year]) {
+            this.calendarTasks[task.year] = {};
         }
-        if (!this.calendarTasks[year][month]) {
-            this.calendarTasks[year][month] = {};
+        if (!this.calendarTasks[task.year][task.month]) {
+            this.calendarTasks[task.year][task.month] = {};
         }
-        if (!this.calendarTasks[year][month][day]) {
-            this.calendarTasks[year][month][day] = { task: '' };
+        if (!this.calendarTasks[task.year][task.month][task.day]) {
+            this.calendarTasks[task.year][task.month][task.day] = { task: '' };
         }
 
-        this.calendarTasks[year][month][day].task = taskString;
+        this.calendarTasks[task.year][task.month][task.day].task = task.taskString;
+        this.pushTask(task);
+    }
+
+    private pushTask(task: ITask): void {
+        if (!this.tasksList.length) {
+            this.tasksList.push(task);
+            return;
+        }
+
+        let taskIndex: number = 0;
+        const hasSameTask = this.tasksList.some((tsk, index) => {
+            taskIndex = index;
+            return tsk.id === task.id
+        });
+
+        hasSameTask
+            ? this.tasksList[taskIndex] = task
+            : this.tasksList.push(task);
     }
 }

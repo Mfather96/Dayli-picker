@@ -5,6 +5,7 @@ import { DAYS } from '../../system/constants/date.constants';
 import { NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { CreateTaskComponent } from '../create-task/create-task.component';
 import { DayComponent } from '../day/day.component';
+import {DateHelper} from '../../system/helpers/date.helper';
 
 @Component({
     selector: '[app-month]',
@@ -33,7 +34,7 @@ export class MonthComponent implements OnInit {
 
     ngOnInit(): void {
         this.setData();
-        this.monthDays = this.dateService.calculateMonthDays(
+        this.monthDays = DateHelper.calculateMonthDays(
             this.monthDays,
             this.daysAmount,
             this.weekDayStartMonth,
@@ -41,11 +42,11 @@ export class MonthComponent implements OnInit {
     }
 
     public get today(): string {
-        return this.dateService.today();
+        return DateHelper.today();
     }
 
     public getDay(day: number): string {
-        return this.dateService.getDay(day, this.monthIndex);
+        return DateHelper.getDay(day, this.monthIndex);
     }
 
     private setData(): void {

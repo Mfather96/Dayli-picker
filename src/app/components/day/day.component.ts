@@ -47,14 +47,13 @@ export class DayComponent implements OnInit, AfterViewInit {
         });
 
         this.myForm.valueChanges.pipe(debounceTime(1200)).subscribe((v) => {
-            this.dateService.setTask(
-                String(dayjs().year()),
-                months[this.monthIndex].title,
-                String(this.day),
-                v.contentFormControl,
-            );
-
-            // console.log(this.dateService.calendarTasksPublic);
+            this.dateService.setTask({
+                id: (String(dayjs().year() + months[this.monthIndex].title + this.day)),
+                year: String(dayjs().year()),
+                month: months[this.monthIndex].title,
+                day: String(this.day),
+                taskString: v.contentFormControl,
+            });
 
             this.hasTask = this.checkTask();
         });
