@@ -25,4 +25,18 @@ export interface ITask {
     month: string,
     day: string,
     taskString: string,
+    date: Date
+}
+
+export interface IDateInfo {
+    id: string,
+    day: number,
+    monthIndex: number,
+}
+
+export interface ICarouselContext<T> {
+    $implicit: T,
+    appCarouselOf: T[],
+    next: () => void,
+    prev: () => void,
 }

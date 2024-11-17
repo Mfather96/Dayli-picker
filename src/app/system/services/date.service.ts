@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { CalendarTasks, ITask } from '../interfaces/interface';
 import {BehaviorSubject} from 'rxjs';
+import {taskListMocks} from './tasks-mocks';
 
 @Injectable({
     providedIn: 'root',
 })
 export class DateService {
-    public tasksList: ITask[] = []
+    public taskList$: BehaviorSubject<ITask[]> = new BehaviorSubject<ITask[]>([])
 
+    private tasksList: ITask[] = taskListMocks;
     private calendarTasks: CalendarTasks = {};
 
     constructor() {}
@@ -46,5 +48,9 @@ export class DateService {
         hasSameTask
             ? this.tasksList[taskIndex] = task
             : this.tasksList.push(task);
+
+        this.taskList$.next(this.tasksList);
+        console.log(this.tasksList);
+
     }
 }

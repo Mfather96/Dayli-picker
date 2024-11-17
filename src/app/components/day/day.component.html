@@ -1,7 +1,20 @@
-<div #dayOverhead class="container-day" [class.has-task]="hasTask">
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<div class="container-day"
+    [class.has-task]="hasTask"
+    (click)="toggleCreateTask()">
     {{ day }}
 </div>
 
-<div *ngIf="isOpen" [formGroup]="myForm" class="textarea-day">
-    <textarea formControlName="contentFormControl" name="task"></textarea>
+<div *ngIf="toggleBackdrop"
+    class="backdrop"
+    (click)="toggleCreateTask()">
+</div>
+
+<div *ngIf="isOpen"
+    #createTask
+    app-create-task
+    [selectedDate]="dateToday"
+    [dateInfo]="dateInfo"
+    (hasTaskListen)="hasTask = $event">
 </div>

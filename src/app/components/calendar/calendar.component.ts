@@ -2,14 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import dayjs from 'dayjs';
 import { DateService } from '../../system/services/date.service';
 import { MonthComponent } from '../month/month.component';
-import { NgFor } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { IMonth } from '../../system/interfaces/interface';
 import {DateHelper} from '../../system/helpers/date.helper';
+import {CarouselDirective} from '../../system/directives/carousel.directive';
 
 @Component({
     selector: '[app-calendar]',
     standalone: true,
-    imports: [MonthComponent, NgFor],
+    imports: [
+        CommonModule,
+        MonthComponent,
+        CarouselDirective,
+    ],
     templateUrl: './calendar.component.html',
     styleUrl: './calendar.component.scss',
 })
@@ -25,9 +30,5 @@ export class CalendarComponent implements OnInit {
 
     public get sortedMonth(): IMonth[] {
         return DateHelper.getMonthsArr().reverse();
-    }
-
-    public toggleOldMonthes() {
-        // this.appMonth.nativeElement.classList.toggle('old');
     }
 }

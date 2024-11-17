@@ -1,14 +1,44 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import {PopupService} from './system/services/popup.service';
+import {DumbNgIfDirective} from './system/directives/dumbNgIf.directive';
 
 @Component({
     selector: '[app-root]',
     standalone: true,
-    imports: [CommonModule, RouterOutlet],
+    imports: [CommonModule, RouterOutlet, DumbNgIfDirective],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     title = 'daily-picker';
+    loremchikString: string = 'volodya';
+
+
+    @ViewChild('viewportPopup', {static: true, read: ViewContainerRef})
+    private readonly viewport: ViewContainerRef | null = null;
+
+    constructor(
+        private popupService: PopupService,
+        private cdr: ChangeDetectorRef
+    ) {}
+
+    ngOnInit(): void {
+        if (this.viewport) {
+            this.popupService.init(this.viewport);
+        }
+    }
+
+    public get loremchik() {
+        console.log('getter lorem');
+
+        return this.loremchikString;
+    }
+    toggleLorem() {
+        this.loremchikString
+            ? this.loremchikString = ''
+            : this.loremchikString = 'volodya'
+    }
 }

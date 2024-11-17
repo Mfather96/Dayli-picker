@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { DateService } from '../../system/services/date.service';
 import dayjs from 'dayjs';
 import { DAYS } from '../../system/constants/date.constants';
-import { NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { CreateTaskComponent } from '../create-task/create-task.component';
 import { DayComponent } from '../day/day.component';
 import {DateHelper} from '../../system/helpers/date.helper';
@@ -10,7 +10,7 @@ import {DateHelper} from '../../system/helpers/date.helper';
 @Component({
     selector: '[app-month]',
     standalone: true,
-    imports: [NgFor, NgIf, CreateTaskComponent, NgTemplateOutlet, DayComponent],
+    imports: [CommonModule, CreateTaskComponent, DayComponent],
     templateUrl: './month.component.html',
     styleUrl: './month.component.scss',
 })

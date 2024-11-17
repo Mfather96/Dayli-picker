@@ -1,23 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Input, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { DateService } from '../../system/services/date.service';
 import { BehaviorSubject } from 'rxjs';
-import {NgFor} from '@angular/common';
+import {CommonModule, NgFor} from '@angular/common';
 import {ITask} from '../../system/interfaces/interface';
 import {TaskComponent} from './task/task.component';
+import {ActiveShadowDirective} from '../../system/directives/activeShadow.directive';
 
 @Component({
     selector: '[app-task-list]',
     standalone: true,
-    imports: [NgFor, TaskComponent],
+    imports: [
+        CommonModule,
+        TaskComponent,
+        ActiveShadowDirective,
+    ],
     templateUrl: './task-list.component.html',
     styleUrl: './task-list.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskListComponent implements OnInit {
-    public tasks: ITask[] | null = [];
+    private taskList: ITask[] | null = [];
 
-    constructor(private dateService: DateService) {}
+    constructor(private dateService: DateService, private cdr: ChangeDetectorRef) {}
 
     ngOnInit(): void {
-        this.tasks = this.dateService.tasksList
+        this.dateService.taskList$.subscribe(list => {
+            this.taskList = this.sortTasks(list);
+            this.cdr.markForCheck();
+        })
+        this.cdr.markForCheck();
+    }
+
+    public get tasks(): ITask[] {
+        if (this.taskList) {
+            return this.sortTasks(this.taskList);
+        } else {
+            return []
+        }
+    }
+    protected sortTasks(tasks: ITask[]): ITask[] {
+        return tasks.sort((firstElement, secondElement) => {
+            return firstElement.date.getTime() - secondElement.date.getTime();
+        })
     }
 }

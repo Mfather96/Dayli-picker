@@ -1,5 +1,6 @@
 .container {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     max-width: 1200px;
     gap: 15px;
@@ -10,8 +11,23 @@
         box-sizing: content-box;
 
         &.old {
-            // opacity: 0.3;
-            display: none;
+            opacity: 0.3;
+            // display: none;
+        }
+    }
+
+    .prev,
+    .next {
+        height: 50px;
+        width: 70px;
+        border: none;
+        border-radius: 3px;
+        background: #070707;
+        color: #fff;
+
+        &:hover {
+            border: none;
+            background: #5e5e5e;
         }
     }
 }
