@@ -8,4 +8,41 @@
         box-shadow: -2px 0 3px 1px rgba(255, 255, 255, .3);
         height: 100%;
     }
+
+    .pagination-container {
+        margin-top: 30px;
+        display: flex;
+        gap: 25px;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+        .pageCount {
+            color: #858585;
+            font-weight: bold;
+
+            &.active {
+                color: #fff;
+            }
+        }
+
+        .pagination-prev svg,
+        .pagination-next svg {
+            width: 25px;
+            height: 25px;
+
+            path {
+                stroke: #fff
+            }
+            &:hover {
+                path {
+
+                    stroke: #a6a6a6
+                }
+            }
+        }
+
+        .pagination-prev svg{
+            transform: rotateY(180deg);
+        }
+    }
 }

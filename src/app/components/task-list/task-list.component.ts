@@ -5,6 +5,7 @@ import {CommonModule, NgFor} from '@angular/common';
 import {ITask} from '../../system/interfaces/interface';
 import {TaskComponent} from './task/task.component';
 import {ActiveShadowDirective} from '../../system/directives/activeShadow.directive';
+import { PaginationDirective } from '../../system/directives/pagination.directive';
 
 @Component({
     selector: '[app-task-list]',
@@ -13,6 +14,7 @@ import {ActiveShadowDirective} from '../../system/directives/activeShadow.direct
         CommonModule,
         TaskComponent,
         ActiveShadowDirective,
+        PaginationDirective
     ],
     templateUrl: './task-list.component.html',
     styleUrl: './task-list.component.scss',

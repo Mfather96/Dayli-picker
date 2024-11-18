@@ -40,3 +40,12 @@ export interface ICarouselContext<T> {
     next: () => void,
     prev: () => void,
 }
+
+export interface IPaginationContext<T> {
+    $implicit: T[],
+    appPaginationOf: T[],
+    pages: Set<number>,
+    activePage: number,
+    next?: () => void,
+    prev?: () => void,
+}

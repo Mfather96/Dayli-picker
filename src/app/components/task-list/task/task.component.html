@@ -1,4 +1,5 @@
 <div *ngIf="task" class="task-container">
     <div class="date">{{task.day}} {{task.month}} {{task.year}}</div>
     <div class="task-string">{{task.taskString}}</div>
+    <ng-content></ng-content>
 </div>

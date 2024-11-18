@@ -1,17 +1,17 @@
-import {Directive, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef, ViewContainerRef} from "@angular/core";
-import {BehaviorSubject, filter, map, Subject, takeUntil} from "rxjs";
+import {Directive, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewContainerRef} from "@angular/core";
+import {BehaviorSubject, filter, map, takeUntil} from "rxjs";
 import {ICarouselContext} from "../interfaces/interface";
+import { AbstractDirective } from "./abstract.directive";
 
 @Directive({
     selector: '[appCarousel]',
     standalone: true,
 })
-export class CarouselDirective<T> implements OnChanges, OnInit, OnDestroy {
+export class CarouselDirective<T> extends AbstractDirective implements OnChanges, OnInit {
     @Input() appCarouselOf: T[] | null | undefined;
     @Input() appCarouselCustomIndex: number | undefined;
 
     private currentIndex$: BehaviorSubject<number> = new BehaviorSubject<number>(this.customCurrentIndex);
-    private destroy$: Subject<void> = new Subject<void>();
 
     get customCurrentIndex(): number {
         return this.appCarouselCustomIndex ? this.appCarouselCustomIndex : 0
@@ -24,7 +24,9 @@ export class CarouselDirective<T> implements OnChanges, OnInit, OnDestroy {
     constructor(
         private viewContainerRef: ViewContainerRef,
         private templateRef: TemplateRef<ICarouselContext<T>>
-    ) {}
+    ) {
+        super()
+    }
 
     ngOnChanges({appCarouselOf, appCarouselCustomIndex}: SimpleChanges): void {
         if (appCarouselOf) {
@@ -32,19 +34,12 @@ export class CarouselDirective<T> implements OnChanges, OnInit, OnDestroy {
         }
 
         if (appCarouselCustomIndex) {
-            console.log(this.customCurrentIndex);
-
             this.currentIndex$.next(this.customCurrentIndex)
         }
     }
 
     ngOnInit(): void {
         this.listenCurrentIndex();
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.next();
-        this.destroy$.complete();
     }
 
     private updateView() {

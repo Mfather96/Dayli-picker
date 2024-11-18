@@ -12,7 +12,9 @@ export class DateService {
     private tasksList: ITask[] = taskListMocks;
     private calendarTasks: CalendarTasks = {};
 
-    constructor() {}
+    constructor() {
+        this.taskList$.next(this.tasksList)
+    }
 
     public get calendarTasksPublic() {
         return this.calendarTasks;
@@ -50,7 +52,5 @@ export class DateService {
             : this.tasksList.push(task);
 
         this.taskList$.next(this.tasksList);
-        console.log(this.tasksList);
-
     }
 }
