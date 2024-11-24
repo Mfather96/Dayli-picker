@@ -1,35 +1,75 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import dayjs from 'dayjs';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    model,
+    OnInit,
+    ViewChild,
+    ViewContainerRef
+} from '@angular/core';
 import { DateService } from '../../system/services/date.service';
-import { MonthComponent } from '../month/month.component';
-import { CommonModule, NgFor } from '@angular/common';
-import { IMonth } from '../../system/interfaces/interface';
-import {DateHelper} from '../../system/helpers/date.helper';
-import {CarouselDirective} from '../../system/directives/carousel.directive';
+import { CommonModule } from '@angular/common';
+import {MatCalendarUserEvent, MatDatepicker, MatDatepickerModule} from '@angular/material/datepicker';
+import {MatCardModule} from '@angular/material/card';
+import {provideNativeDateAdapter} from '@angular/material/core';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
     selector: '[app-calendar]',
     standalone: true,
     imports: [
         CommonModule,
-        MonthComponent,
-        CarouselDirective,
+        MatDatepickerModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        FormsModule
+    ],
+    providers: [
+        provideNativeDateAdapter(),
     ],
     templateUrl: './calendar.component.html',
     styleUrl: './calendar.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CalendarComponent implements OnInit {
-    public monthArr: IMonth[] = [];
-    public currentMonth: number = dayjs().month();
+    selected = model<Date | null>(null);
+    textareaForm!: FormGroup;
 
-    constructor(private dateService: DateService) {}
+    constructor(
+        private readonly dateService: DateService
+    ) {}
 
     ngOnInit(): void {
-        this.monthArr = DateHelper.getMonthsArr();
+        this.textareaForm = new FormGroup({
+            taskText: new FormControl(this.setInitialValue())
+        })
     }
 
-    public get sortedMonth(): IMonth[] {
-        return DateHelper.getMonthsArr().reverse();
+    check() {
+        console.log(this.dateService.newTaskList$.value);
+
+        this.textareaForm.setValue({taskText: this.setInitialValue()});
+    }
+
+    submit() {
+        this.dateService.addTask({
+            date: this.selected() as Date,
+            value: this.textareaForm?.value.taskText
+        })
+    }
+
+    setInitialValue(): string {
+        const date = this.selected() as Date;
+        let value = '';
+
+        for (const task of this.dateService.newTaskList$.value) {
+
+            if (date.getTime() === task.date.getTime()) {
+                value = task.value;
+                break
+            }
+            return ''
+        }
+
+        return value
     }
 }

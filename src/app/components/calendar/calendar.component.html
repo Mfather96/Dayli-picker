@@ -1,42 +1,11 @@
-<!-- <div class="container">
-    <div
-        *ngFor="let month of monthArr"
-        #appMonth
-        app-month
-        class="month"
-        [class.old]="currentMonth > month.id"
-        [monthName]="month.title"
-        [monthIndex]="month.id"
-    ></div>
-</div> -->
-<!-- <div class="container">
-    <ng-template appCarousel
-        [appCarouselOf]="monthArr"
-        [customIndex]="currentMonth"
-        let-month
-        let-next="next"
-        let-prev="prev">
-        <button class="prev" (click)="prev()">Пред</button>
-        <div #appMonth
-            app-month
-            class="month"
-            [class.old]="currentMonth > month.id"
-            [monthName]="month.title"
-            [monthIndex]="month.id"
-        ></div>
-        <button class="next" (click)="next()">След</button>
-    </ng-template>
-</div> -->
-<div class="container">
-    <ng-container *appCarousel="let month; of monthArr; customIndex currentMonth; let next = next; let prev = prev;">
-        <button class="prev" (click)="prev()">Пред</button>
-        <div #appMonth
-            app-month
-            class="month"
-            [class.old]="currentMonth > month.id"
-            [monthName]="month.title"
-            [monthIndex]="month.id"
-        ></div>
-        <button class="next" (click)="next()">След</button>
-    </ng-container>
+<mat-card ngSkipHydration class="demo-inline-calendar-card">
+    <mat-calendar #calendar [(selected)]="selected" (_userSelection)="check()"></mat-calendar>
+</mat-card>
+<div class="create-task-container" [formGroup]="textareaForm" onsubmit="submit()">
+    <label for="create">{{ selected() ? (selected() | date:'dd MMMM YYYY':'UTC'): 'Выберете дату'}}</label>
+    <textarea formControlName="taskText"
+        placeholder="Вводим сюда текст и нажимаем Enter"
+        name="create"
+        id="create"
+        (keydown.enter)="submit()"></textarea>
 </div>

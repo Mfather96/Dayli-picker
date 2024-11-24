@@ -30,11 +30,9 @@ export class TaskListComponent extends AbstractComponent implements OnInit {
             .pipe(
                 takeUntil(this.destroy$)
             ).subscribe(list => {
-            // this.taskList$.next([])
             setTimeout(() => {
             })
             this.taskList$.next(this.sortTasks(list));
-            // this.cdr.markForCheck();
         })
     }
 

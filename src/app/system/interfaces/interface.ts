@@ -28,6 +28,11 @@ export interface ITask {
     date: Date
 }
 
+export interface Task {
+    date: Date,
+    value: string,
+}
+
 export interface IDateInfo {
     id: string,
     day: number,

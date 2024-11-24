@@ -1,5 +1,9 @@
-.content {
-    display: flex;
-    justify-content: center;
-    gap: 50px;
+:host {
+    padding-top: 50px;
+
+    .content {
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+    }
 }

@@ -26,7 +26,7 @@ export class PaginationDirective<T> extends AbstractDirective implements OnInit,
 
     ngOnChanges({appPaginationOf}: SimpleChanges): void {
         if (appPaginationOf) {
-            this.updateView();            
+            this.updateView();
         }
     }
 
@@ -51,8 +51,6 @@ export class PaginationDirective<T> extends AbstractDirective implements OnInit,
                 map((activePageNumber) => this.getItemsByAmount(activePageNumber)),
                 takeUntil(this.destroy$)
             ).subscribe((context) => {
-                console.log(context);
-                
                 this.viewContainerRef.clear();
                 this.viewContainerRef.createEmbeddedView(this.templateRef, context);
                 this.cdr.markForCheck();

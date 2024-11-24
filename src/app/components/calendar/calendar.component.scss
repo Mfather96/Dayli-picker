@@ -1,33 +1,40 @@
-.container {
+:host {
     display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    gap: 15px;
-    margin: 0 auto;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 30px;
 
-    .month {
-        transition: all ease 0.1s;
-        box-sizing: content-box;
+    .create-task-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
 
-        &.old {
-            opacity: 0.3;
-            // display: none;
+        label {
+            width: 100%;
+            display: inline-block;
+            padding: 5px;
+            box-sizing: border-box;
+            background: #2e2e2e;
+        }
+
+        textarea {
+            border-radius: 0 0 3px 3px;
+            width: 100%;
+            border: none;
+            box-sizing: border-box;
+            padding: 10px;
+            background: #424242;
+            color: #fff;
+            height: 120px;
+            resize: none;
+
+            &:focus-visible {
+                outline: none;
+            }
         }
     }
 
-    .prev,
-    .next {
-        height: 50px;
-        width: 70px;
-        border: none;
-        border-radius: 3px;
-        background: #070707;
-        color: #fff;
-
-        &:hover {
-            border: none;
-            background: #5e5e5e;
-        }
+    .demo-inline-calendar-card {
+        width: 350px;
     }
 }

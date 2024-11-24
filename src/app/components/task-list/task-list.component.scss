@@ -1,27 +1,32 @@
 :host {
-    color: #fff;
+    color: #ffffffdc;
 
     .container {
         width: 400px;
         padding: 20px;
         background: #333;
-        box-shadow: -2px 0 3px 1px rgba(255, 255, 255, .3);
         height: 100%;
+        box-sizing: border-box;
+        position: relative;
     }
 
     .pagination-container {
-        margin-top: 30px;
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
         display: flex;
         gap: 25px;
         align-items: center;
         justify-content: center;
         user-select: none;
+
         .pageCount {
             color: #858585;
-            font-weight: bold;
 
             &.active {
-                color: #fff;
+                font-weight: bold;
+                color: #ffffff;
             }
         }
 
@@ -31,12 +36,14 @@
             height: 25px;
 
             path {
-                stroke: #fff
+                stroke: #8a8a8a
             }
+
             &:hover {
+
                 path {
 
-                    stroke: #a6a6a6
+                    stroke: #ffffff
                 }
             }
         }

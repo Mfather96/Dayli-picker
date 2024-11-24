@@ -1,11 +1,15 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import {ITask} from '../../../system/interfaces/interface';
-import {NgIf} from '@angular/common';
+import {CommonModule} from '@angular/common';
+import {TextPipe} from '../../../system/pipes/text.pipe';
 
 @Component({
   selector: '[app-task]',
   standalone: true,
-  imports: [NgIf],
+  imports: [
+    CommonModule,
+    TextPipe,
+  ],
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

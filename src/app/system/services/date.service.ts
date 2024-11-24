@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CalendarTasks, ITask } from '../interfaces/interface';
+import { CalendarTasks, ITask, Task } from '../interfaces/interface';
 import {BehaviorSubject} from 'rxjs';
 import {taskListMocks} from './tasks-mocks';
 
@@ -7,14 +7,15 @@ import {taskListMocks} from './tasks-mocks';
     providedIn: 'root',
 })
 export class DateService {
-    public taskList$: BehaviorSubject<ITask[]> = new BehaviorSubject<ITask[]>([])
+    public taskList$ = new BehaviorSubject<ITask[]>(taskListMocks);
+    public newTaskList$ = new BehaviorSubject<Task[]>([]);
 
     private tasksList: ITask[] = taskListMocks;
     private calendarTasks: CalendarTasks = {};
 
-    constructor() {
-        this.taskList$.next(this.tasksList)
-    }
+    // constructor() {
+    //     this.taskList$.next(this.tasksList)
+    // }
 
     public get calendarTasksPublic() {
         return this.calendarTasks;
@@ -33,6 +34,11 @@ export class DateService {
 
         this.calendarTasks[task.year][task.month][task.day].task = task.taskString;
         this.pushTask(task);
+    }
+
+    public addTask(task: Task): void {
+        const arr = [...this.newTaskList$.value, task];
+        this.newTaskList$.next(arr);
     }
 
     private pushTask(task: ITask): void {

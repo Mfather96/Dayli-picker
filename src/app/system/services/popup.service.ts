@@ -1,7 +1,6 @@
 import {
     ComponentRef,
     Injectable,
-    TemplateRef,
     ViewContainerRef
 } from "@angular/core";
 import {PopupComponent} from "../../components/popup/popup.component";
@@ -17,7 +16,6 @@ export class PopupService {
     }
 
     public showPopupNewTask() {
-
         this.viewContainerRef.createComponent<PopupComponent>(PopupComponent);
 
         setTimeout(() => {
