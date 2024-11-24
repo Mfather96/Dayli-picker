@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import dayjs from 'dayjs';
 import { DateService } from '../../system/services/date.service';
 import { MonthComponent } from '../month/month.component';
@@ -17,6 +17,7 @@ import {CarouselDirective} from '../../system/directives/carousel.directive';
     ],
     templateUrl: './calendar.component.html',
     styleUrl: './calendar.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CalendarComponent implements OnInit {
     public monthArr: IMonth[] = [];

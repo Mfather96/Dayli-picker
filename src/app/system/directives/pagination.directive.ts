@@ -1,4 +1,4 @@
-import {Directive, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewContainerRef} from "@angular/core";
+import {ChangeDetectorRef, Directive, inject, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewContainerRef} from "@angular/core";
 import { AbstractDirective } from "./abstract.directive";
 import { BehaviorSubject, map, takeUntil } from "rxjs";
 import { IPaginationContext } from "../interfaces/interface";
@@ -7,13 +7,15 @@ import { IPaginationContext } from "../interfaces/interface";
     selector: '[appPagination]',
     standalone: true,
 })
-export class PaginationDirective<T> extends AbstractDirective implements OnInit {
+export class PaginationDirective<T> extends AbstractDirective implements OnInit, OnChanges {
     @Input() appPaginationOf: T[] | undefined | null;
     @Input() appPaginationItemsPerPage: number = 10;
 
-    protected amountItems$: BehaviorSubject<number> = new BehaviorSubject<number>(0)
-    protected activePage$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+    protected items$ = new BehaviorSubject<T[] | undefined | null>(null)
+    protected activePage$ = new BehaviorSubject<number>(1);
     protected pagesAmount: Set<number> = new Set([]);
+
+    private readonly cdr = inject(ChangeDetectorRef);
 
     constructor(
         private viewContainerRef: ViewContainerRef,
@@ -22,14 +24,25 @@ export class PaginationDirective<T> extends AbstractDirective implements OnInit 
         super()
     }
 
+    ngOnChanges({appPaginationOf}: SimpleChanges): void {
+        if (appPaginationOf) {
+            this.updateView();            
+        }
+    }
+
     ngOnInit(): void {
         this.calcAmountPages();
 
-        if (this.appPaginationItemsPerPage) {
-            this.amountItems$.next(this.appPaginationItemsPerPage)
+        this.listenAmountItems();
+    }
+
+    private updateView() {
+        if (this.appPaginationOf?.length) {
+            this.activePage$.next(1);
+            return;
         }
 
-        this.listenAmountItems();
+        this.viewContainerRef.clear();
     }
 
     private listenAmountItems() {
@@ -38,8 +51,11 @@ export class PaginationDirective<T> extends AbstractDirective implements OnInit 
                 map((activePageNumber) => this.getItemsByAmount(activePageNumber)),
                 takeUntil(this.destroy$)
             ).subscribe((context) => {
+                console.log(context);
+                
                 this.viewContainerRef.clear();
-                this.viewContainerRef.createEmbeddedView(this.templateRef, context)
+                this.viewContainerRef.createEmbeddedView(this.templateRef, context);
+                this.cdr.markForCheck();
             })
     }
 

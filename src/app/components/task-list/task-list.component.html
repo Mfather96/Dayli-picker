@@ -1,6 +1,6 @@
 <div class="container">
     <ng-template [appPagination]
-        [appPaginationOf]="tasks"
+        [appPaginationOf]="taskList$ | async"
         [appPaginationItemsPerPage]="7"
         let-resTasks
         let-pages="pages"

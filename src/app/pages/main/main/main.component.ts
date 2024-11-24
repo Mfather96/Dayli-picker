@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CalendarComponent } from '../../../components/calendar/calendar.component';
 import {TaskListComponent} from '../../../components/task-list/task-list.component';
 import {CommonModule} from '@angular/common';
-import {interval} from 'rxjs';
 
 @Component({
     selector: '[app-main]',
@@ -16,10 +15,7 @@ import {interval} from 'rxjs';
     ],
     templateUrl: './main.component.html',
     styleUrl: './main.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MainComponent implements OnInit {
-    public isChange: boolean = false;
-
-    ngOnInit(): void {
-    }
+export class MainComponent  {
 }
